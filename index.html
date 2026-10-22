@@ -4,59 +4,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mindoria — City of Knowledge</title>
+<title>Mindoria — Pixel City of Knowledge</title>
 <style>
-:root{--bg:#0b1020;--panel:#151e32;--panel2:#1c2940;--text:#edf3ff;--muted:#9eafca;--blue:#60a5fa;--green:#34d399;--gold:#fbbf24;--red:#fb7185}
+:root{
+  --bg:#172a25;--panel:#243b32;--panel2:#304b3d;
+  --text:#f4f0d5;--muted:#b3c5a5;--blue:#75b9ff;
+  --green:#8bd450;--gold:#f5c451;--red:#f47b72;
+  --border:#101c1a;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Arial,sans-serif}
-header{padding:20px 16px;background:linear-gradient(120deg,#182c4c,#10172a);border-bottom:1px solid #293650}
-h1{margin:0;font-size:27px}h2{font-size:20px;margin:0 0 12px}h3{margin:0 0 8px}
-.sub{color:var(--muted);font-size:13px;margin-top:4px}
-main{max-width:1100px;margin:auto;padding:16px;display:grid;gap:15px}
-.panel{background:var(--panel);border:1px solid #293650;border-radius:16px;padding:16px;min-width:0}
+body{margin:0;background:var(--bg);color:var(--text);font-family:monospace;image-rendering:pixelated}
+header{padding:22px 16px;background:#253e35;border-bottom:5px solid var(--border);box-shadow:0 5px 0 #101c1a}
+h1{margin:0;font-size:clamp(23px,4vw,32px);letter-spacing:1px}
+h2{font-size:19px;margin:0 0 12px}
+h3{margin:0 0 8px}
+.sub{color:var(--muted);font-size:12px;margin-top:8px}
+main{max-width:1150px;margin:auto;padding:16px;display:grid;gap:16px}
+.panel{background:var(--panel);border:3px solid var(--border);border-radius:3px;padding:16px;box-shadow:5px 5px 0 #0c1714;min-width:0}
 .resources{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.resource{background:var(--panel2);padding:12px 5px;border-radius:12px;text-align:center}
-.resource .emoji{font-size:22px}.resource strong{display:block;font-size:19px}.resource small{color:var(--muted)}
+.resource{background:var(--panel2);padding:12px 5px;border:2px solid var(--border);border-radius:2px;text-align:center}
+.resource .emoji{font-size:25px}
+.resource strong{display:block;font-size:19px;margin:5px 0}
+.resource small{color:var(--muted);font-size:11px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 button,select,input{font:inherit}
-button{border:0;border-radius:10px;padding:10px 13px;background:#2c4264;color:white;cursor:pointer;font-weight:650}
-button:hover{filter:brightness(1.16)}button:disabled{opacity:.4;cursor:not-allowed}
-.primary{background:#2563eb}.green{background:#087f5b}.gold{background:#946500}.danger{background:#7f263c}
-.muted{color:var(--muted);font-size:13px}
-.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
-.cell{min-height:82px;padding:5px;background:#111a2b;border:1px dashed #3b4b65;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px}
-.cell b{font-size:25px}.cell span{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
-.cell.built{background:#203651;border-style:solid;border-color:#45688d}
-.columns{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.item{background:var(--panel2);padding:12px;border-radius:12px;margin-top:9px}
-.item p{font-size:13px;color:var(--muted);margin:5px 0 10px}
+button{border:2px solid var(--border);border-radius:2px;padding:10px 13px;background:#405b49;color:white;cursor:pointer;font-weight:700;box-shadow:0 3px 0 #101c1a;transition:filter .12s,transform .08s}
+button:hover{filter:brightness(1.18)}
+button:active{transform:translateY(2px);box-shadow:0 1px 0 #101c1a}
+button:disabled{opacity:.4;cursor:not-allowed;filter:grayscale(1)}
+.primary{background:#356ec4}.green{background:#26875b}.gold{background:#9b7422}.danger{background:#923c45}
+.muted{color:var(--muted);font-size:12px;line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;padding:8px;background:#182820;border:3px solid var(--border)}
+.cell{position:relative;min-width:0;min-height:95px;padding:5px 2px;background:#56854c;border:0;border-radius:0;box-shadow:inset -4px -4px 0 #3c673b,inset 4px 4px 0 #78a95b;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:5px;overflow:hidden}
+.cell:nth-child(3n){background:#5d8c50}
+.cell:nth-child(4n){background:#4d7b48}
+.cell b{font-size:30px;line-height:1.1;filter:drop-shadow(2px 2px 0 #243b25)}
+.cell span{font-size:10px;color:#fff8d7;overflow-wrap:anywhere;text-shadow:1px 1px #263b26}
+.cell.built{background:#416c46;box-shadow:inset -4px -4px 0 #2b5038,inset 4px 4px 0 #67945a;border:2px solid #263b2a}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.item{background:var(--panel2);padding:12px;border:2px solid var(--border);border-radius:2px;margin-top:9px}
+.item p{font-size:12px;color:var(--muted);margin:7px 0 10px;line-height:1.5}
 .item button{font-size:12px}
-.progress{height:7px;background:#28354b;border-radius:9px;overflow:hidden;margin-top:7px}
-.progress div{height:100%;background:var(--green)}
-.overlay{position:fixed;inset:0;background:#030711df;display:none;align-items:center;justify-content:center;padding:14px;z-index:10;overflow:auto}
-.modal{background:var(--panel);border:1px solid #3a4d6d;border-radius:18px;width:100%;max-width:650px;max-height:94vh;overflow:auto;padding:20px}
+.progress{height:12px;background:#111c19;border:2px solid var(--border);border-radius:0;overflow:hidden;margin-top:7px}
+.progress div{height:100%;background:#91d957;box-shadow:inset 0 -3px 0 #4b963e}
+.overlay{position:fixed;inset:0;background:#08100ee8;display:none;align-items:center;justify-content:center;padding:14px;z-index:10;overflow:auto}
+.modal{background:var(--panel);border:3px solid var(--border);box-shadow:7px 7px 0 #070d0b;border-radius:2px;width:100%;max-width:650px;max-height:94vh;overflow:auto;padding:20px}
 .modalHead{display:flex;justify-content:space-between;gap:10px;align-items:start}
-.question{font-size:18px;line-height:1.5;margin:18px 0}
-pre{background:#090f1d;padding:14px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b9e0ff;overflow-x:auto}
-.option{display:block;width:100%;text-align:left;margin:8px 0;background:#202d44;border:1px solid #364863}
-input[type=text],input[type=number]{width:100%;padding:12px;border-radius:10px;border:1px solid #40516d;background:#0d1526;color:white;margin:7px 0}
-.feedback{margin-top:12px;padding:12px;border-radius:10px;line-height:1.5}
-.correct{background:#0d382e;border:1px solid #1b765b}.wrong{background:#481e2b;border:1px solid #94374e}
-.tag{display:inline-block;background:#263954;padding:4px 8px;border-radius:20px;font-size:12px;color:#c5d9f5}
-footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
-@media(max-width:650px){.resources{grid-template-columns:repeat(3,1fr)}.columns{grid-template-columns:1fr}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.cell{min-height:75px}h1{font-size:23px}}
+.question{font-size:16px;line-height:1.7;margin:18px 0}
+pre{background:#111c19;border:2px solid #0a1310;padding:14px;border-radius:2px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b9e0ff;overflow-x:auto}
+.option{display:block;width:100%;text-align:left;margin:8px 0;background:#304638;border:2px solid #17251d;box-shadow:none}
+input[type=text],input[type=number]{width:100%;padding:12px;border-radius:2px;border:2px solid var(--border);background:#111c19;color:white;margin:7px 0}
+.feedback{margin-top:12px;padding:12px;border:2px solid;line-height:1.6}
+.correct{background:#153b2a;border-color:#49b875}
+.wrong{background:#48232b;border-color:#d75e70}
+.tag{display:inline-block;background:#3b5845;border:2px solid #15251c;padding:5px 8px;border-radius:2px;font-size:11px;color:#e2efcb}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:11px}
+@media(max-width:650px){
+  .resources{grid-template-columns:repeat(3,1fr)}
+  .columns{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:5px}
+  .cell{min-height:76px}
+  .cell b{font-size:26px}
+  h1{font-size:23px}
+  main{padding:10px;gap:12px}
+  .panel{padding:12px}
+}
 </style>
 </head>
 <body>
 <header>
   <h1>🏙️ Mindoria</h1>
-  <div class="sub">City of Knowledge · Строй. Исследуй. Развивайся.</div>
+  <div class="sub">PIXEL CITY OF KNOWLEDGE · Строй. Исследуй. Развивайся.</div>
 </header>
 
 <main>
   <section class="panel">
     <div class="row" style="justify-content:space-between">
-      <div><h2>Твоя цивилизация</h2><div class="muted" id="levelText">Уровень 1</div></div>
+      <div><h2>🏰 Твоя цивилизация</h2><div class="muted" id="levelText">Уровень 1</div></div>
       <div class="tag" id="turnText">Ход 1</div>
     </div>
     <div class="progress"><div id="xpBar" style="width:0%"></div></div>
@@ -73,11 +97,11 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
 
   <section class="panel">
     <div class="row" style="justify-content:space-between;margin-bottom:12px">
-      <h2>🗺️ Карта города</h2>
+      <h2>🗺️ Пиксельный город</h2>
       <button class="primary" onclick="nextTurn()">⏩ Следующий ход</button>
     </div>
     <div class="grid" id="city"></div>
-    <p class="muted">Нажми на свободную клетку, чтобы построить здание. Производство происходит каждый ход.</p>
+    <p class="muted">🌱 Выбери участок, построй здание и развивай свой город. Каждый ход здания производят ресурсы.</p>
   </section>
 
   <div class="columns">
@@ -93,7 +117,7 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
 
   <section class="panel">
     <h2>🎓 Академия знаний</h2>
-    <p class="muted">Решай практические задачи по Java и математике. Сложные задания дают больше наград.</p>
+    <p class="muted">Решай задачи по Java и математике. Сложные задания дают больше наград.</p>
     <div class="row">
       <button class="primary" onclick="openQuiz('it')">💻 Информатика</button>
       <button class="green" onclick="openQuiz('math')">📐 Математика</button>
@@ -139,10 +163,11 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
   </div>
 </div>
 
-<footer>Mindoria MVP · Твой город, твои решения, твои знания.</footer>
+<footer>Mindoria Pixel Edition · Твой город, твои решения, твои знания.</footer>
 
 <script>
 const SAVE_KEY = "mindoria_save_v2";
+
 const buildings = {
   house:{name:"Дом",icon:"🏠",cost:{wood:15,stone:5},desc:"Увеличивает население и приносит опыт.",produce:{xp:2}},
   sawmill:{name:"Лесопилка",icon:"🪵",cost:{wood:12,stone:8},desc:"Производит дерево каждый ход.",produce:{wood:8}},
@@ -151,6 +176,7 @@ const buildings = {
   solar:{name:"Солнечная станция",icon:"☀️",cost:{wood:15,stone:15},desc:"Производит энергию.",produce:{energy:6}},
   academy:{name:"Академия",icon:"🎓",cost:{wood:30,stone:25,knowledge:10},desc:"Усиливает награды за задания.",produce:{knowledge:2,xp:3}}
 };
+
 const techs = {
   engineering:{name:"Инженерия",icon:"⚙️",cost:{knowledge:20,stone:15},desc:"Лесопилки и каменоломни производят на 50% больше."},
   energy:{name:"Энергетика",icon:"🔋",cost:{knowledge:25,energy:10},desc:"Солнечные станции производят вдвое больше энергии."},
@@ -161,87 +187,132 @@ function freshState(){
  return {wood:48,stone:32,energy:12,knowledge:12,xp:0,turn:1,level:1,
   cells:Array(24).fill(null),tech:{},solved:0,correct:0,answered:{},log:[]};
 }
+
 let state;
-try{state=JSON.parse(localStorage.getItem(SAVE_KEY))||freshState()}catch(e){state=freshState()}
+try {
+  state=JSON.parse(localStorage.getItem(SAVE_KEY))||freshState();
+} catch(e) {
+  state=freshState();
+}
 if(!state.cells||state.cells.length!==24)state=freshState();
+state.tech=state.tech||{};
+state.log=state.log||[];
+state.solved=state.solved||0;
+state.correct=state.correct||0;
+state.answered=state.answered||{};
+
 let selectedCell=null,currentQuestion=null,answeredThisQuestion=false;
 
-function save(){localStorage.setItem(SAVE_KEY,JSON.stringify(state))}
-function logEvent(msg){state.log.unshift("Ход "+state.turn+": "+msg);state.log=state.log.slice(0,5)}
-function hasBuilding(id){return state.cells.some(c=>c===id)}
+function save(){
+  try{localStorage.setItem(SAVE_KEY,JSON.stringify(state));}
+  catch(e){console.warn("Не удалось сохранить игру",e);}
+}
+function logEvent(msg){
+  state.log.unshift("Ход "+state.turn+": "+msg);
+  state.log=state.log.slice(0,5);
+}
 function countBuilding(id){return state.cells.filter(c=>c===id).length}
-function fmtCost(cost){return Object.entries(cost).map(([k,v])=>({wood:"🪵",stone:"🪨",energy:"⚡",knowledge:"🧠"}[k]+" "+v)).join(" · ")}
+function fmtCost(cost){
+  return Object.entries(cost).map(([k,v])=>({wood:"🪵",stone:"🪨",energy:"⚡",knowledge:"🧠"}[k]+" "+v)).join(" · ");
+}
 function canAfford(cost){return Object.entries(cost).every(([k,v])=>(state[k]||0)>=v)}
 function pay(cost){Object.entries(cost).forEach(([k,v])=>state[k]-=v)}
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function esc(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
 
 function render(){
- ["wood","stone","energy","knowledge","xp"].forEach(k=>document.getElementById(k).textContent=Math.floor(state[k]||0));
- document.getElementById("levelText").textContent="Уровень "+state.level;
- document.getElementById("turnText").textContent="Ход "+state.turn;
- document.getElementById("xpText").textContent=(state.xp%100)+" / 100 XP до следующего уровня";
- document.getElementById("xpBar").style.width=(state.xp%100)+"%";
- document.getElementById("stats").textContent=state.solved+" решено";
- document.getElementById("statsText").textContent="Правильных ответов: "+state.correct+" из "+state.solved+".";
- document.getElementById("log").innerHTML=state.log.length?state.log.map(esc).join("<br>"):"Пока событий нет.";
+  ["wood","stone","energy","knowledge","xp"].forEach(k=>{
+    document.getElementById(k).textContent=Math.floor(state[k]||0);
+  });
+  document.getElementById("levelText").textContent="Уровень "+state.level;
+  document.getElementById("turnText").textContent="Ход "+state.turn;
+  document.getElementById("xpText").textContent=(state.xp%100)+" / 100 XP до следующего уровня";
+  document.getElementById("xpBar").style.width=(state.xp%100)+"%";
+  document.getElementById("stats").textContent=state.solved+" решено";
+  document.getElementById("statsText").textContent="Правильных ответов: "+state.correct+" из "+state.solved+".";
+  document.getElementById("log").innerHTML=state.log.length?state.log.map(esc).join("<br>"):"Пока событий нет.";
 
- document.getElementById("city").innerHTML=state.cells.map((id,i)=>{
-  if(!id)return `<button class="cell" onclick="selectCell(${i})"><b>＋</b><span>Свободно</span></button>`;
-  let b=buildings[id];
-  return `<button class="cell built" onclick="selectCell(${i})"><b>${b.icon}</b><span>${b.name}</span></button>`;
- }).join("");
+  const art={
+    house:"🏡",sawmill:"🪵",quarry:"⛏️",
+    library:"📚",solar:"☀️",academy:"🏫"
+  };
 
- document.getElementById("buildingList").innerHTML=Object.entries(buildings).map(([id,b])=>
-  `<div class="item"><b>${b.icon} ${b.name}</b><p>${b.desc}</p><div class="muted">${fmtCost(b.cost)}</div><button style="margin-top:9px" onclick="build('${id}')" ${selectedCell===null||state.cells[selectedCell]||!canAfford(b.cost)?"disabled":""}>${selectedCell===null?"Выбери клетку":"Построить"}</button></div>`
- ).join("");
+  document.getElementById("city").innerHTML=state.cells.map((id,i)=>{
+    if(!id){
+      return `<button class="cell" onclick="selectCell(${i})"><b>🌱</b><span>Участок ${i+1}</span></button>`;
+    }
+    const b=buildings[id];
+    if(!b)return `<button class="cell" onclick="selectCell(${i})"><b>❔</b><span>Неизвестно</span></button>`;
+    return `<button class="cell built" onclick="selectCell(${i})"><b>${art[id]||b.icon}</b><span>${b.name}</span></button>`;
+  }).join("");
 
- document.getElementById("techList").innerHTML=Object.entries(techs).map(([id,t])=>
-  `<div class="item"><b>${t.icon} ${t.name}</b><p>${t.desc}</p><div class="muted">${fmtCost(t.cost)}</div><button style="margin-top:9px" onclick="research('${id}')" ${state.tech[id]||!canAfford(t.cost)?"disabled":""}>${state.tech[id]?"Изучено ✓":"Исследовать"}</button></div>`
- ).join("");
- save();
+  document.getElementById("buildingList").innerHTML=Object.entries(buildings).map(([id,b])=>
+    `<div class="item"><b>${b.icon} ${b.name}</b><p>${b.desc}</p><div class="muted">${fmtCost(b.cost)}</div><button style="margin-top:9px" onclick="build('${id}')" ${selectedCell===null||state.cells[selectedCell]||!canAfford(b.cost)?"disabled":""}>${selectedCell===null?"Выбери клетку":"Построить"}</button></div>`
+  ).join("");
+
+  document.getElementById("techList").innerHTML=Object.entries(techs).map(([id,t])=>
+    `<div class="item"><b>${t.icon} ${t.name}</b><p>${t.desc}</p><div class="muted">${fmtCost(t.cost)}</div><button style="margin-top:9px" onclick="research('${id}')" ${state.tech[id]||!canAfford(t.cost)?"disabled":""}>${state.tech[id]?"Изучено ✓":"Исследовать"}</button></div>`
+  ).join("");
+
+  save();
 }
 
 function selectCell(i){
- selectedCell=i;
- if(state.cells[i]){logEvent("На этой клетке уже есть здание.");}
- render();
- if(!state.cells[i])document.getElementById("buildingList").scrollIntoView({behavior:"smooth",block:"nearest"});
+  selectedCell=i;
+  if(state.cells[i])logEvent("На этой клетке уже есть здание.");
+  render();
+  if(!state.cells[i])document.getElementById("buildingList").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 function build(id){
- if(selectedCell===null||state.cells[selectedCell])return;
- let b=buildings[id];if(!canAfford(b.cost)){logEvent("Недостаточно ресурсов для строительства.");render();return}
- pay(b.cost);state.cells[selectedCell]=id;
- logEvent("Построено: "+b.name+".");selectedCell=null;render();
+  if(selectedCell===null||state.cells[selectedCell])return;
+  const b=buildings[id];
+  if(!canAfford(b.cost)){logEvent("Недостаточно ресурсов для строительства.");render();return;}
+  pay(b.cost);
+  state.cells[selectedCell]=id;
+  logEvent("Построено: "+b.name+".");
+  selectedCell=null;
+  render();
 }
 function research(id){
- let t=techs[id];if(state.tech[id]||!canAfford(t.cost))return;
- pay(t.cost);state.tech[id]=true;logEvent("Исследована технология: "+t.name+".");render();
+  const t=techs[id];
+  if(state.tech[id]||!canAfford(t.cost))return;
+  pay(t.cost);
+  state.tech[id]=true;
+  logEvent("Исследована технология: "+t.name+".");
+  render();
 }
 function nextTurn(){
- state.turn++;
- let gain={wood:0,stone:0,energy:0,knowledge:0,xp:0};
- state.cells.forEach(id=>{
-  if(!id)return;
-  Object.entries(buildings[id].produce).forEach(([k,v])=>gain[k]+=v);
- });
- if(state.tech.engineering){gain.wood+=countBuilding("sawmill")*4;gain.stone+=countBuilding("quarry")*3}
- if(state.tech.energy)gain.energy+=countBuilding("solar")*6;
- Object.entries(gain).forEach(([k,v])=>state[k]=(state[k]||0)+v);
- checkLevel();logEvent("Производство завершено. Ресурсы города увеличены.");render();
+  state.turn++;
+  let gain={wood:0,stone:0,energy:0,knowledge:0,xp:0};
+  state.cells.forEach(id=>{
+    if(!id||!buildings[id])return;
+    Object.entries(buildings[id].produce).forEach(([k,v])=>gain[k]+=v);
+  });
+  if(state.tech.engineering){
+    gain.wood+=countBuilding("sawmill")*4;
+    gain.stone+=countBuilding("quarry")*3;
+  }
+  if(state.tech.energy)gain.energy+=countBuilding("solar")*6;
+  Object.entries(gain).forEach(([k,v])=>state[k]=(state[k]||0)+v);
+  checkLevel();
+  logEvent("Производство завершено. Ресурсы города увеличены.");
+  render();
 }
 function checkLevel(){
- let next=Math.floor(state.xp/100)+1;
- if(next>state.level){state.level=next;logEvent("Новый уровень: "+state.level+"!")}
+  const next=Math.floor(state.xp/100)+1;
+  if(next>state.level){state.level=next;logEvent("Новый уровень: "+state.level+"!");}
 }
 function reward(base){
- let mult=state.tech.scholarship?1.5:1;
- let bonus=1+countBuilding("academy")*.15;
- state.knowledge+=Math.round(base.knowledge*mult*bonus);
- state.xp+=Math.round(base.xp*mult*bonus);
- state.energy+=base.energy||0;
- checkLevel();
+  const mult=state.tech.scholarship?1.5:1;
+  const bonus=1+countBuilding("academy")*.15;
+  state.knowledge+=Math.round(base.knowledge*mult*bonus);
+  state.xp+=Math.round(base.xp*mult*bonus);
+  state.energy+=base.energy||0;
+  checkLevel();
 }
 
+/* ВОПРОСЫ ОСТАВЛЕНЫ БЕЗ ИЗМЕНЕНИЙ */
 const IT = [
  {d:1,t:"Что выведет программа?",code:"int a = 7;\nint b = 3;\nSystem.out.println(a / b);",o:["2.333","2","3","Ошибка"],a:1,e:"При делении двух int в Java дробная часть отбрасывается. Результат — 2.",r:10},
  {d:1,t:"Что выведет программа?",code:"int x = 5;\nx += 3 * 2;\nSystem.out.println(x);",o:["16","11","13","10"],a:1,e:"Сначала 3 * 2 = 6, затем 5 + 6 = 11.",r:10},
@@ -259,9 +330,8 @@ const IT = [
  {d:4,t:"Что выведет рекурсия?",code:"static int f(int n) {\n  if (n <= 1) return 1;\n  return n * f(n - 1);\n}\nSystem.out.println(f(4));",o:["10","16","24","120"],a:2,e:"f(4) = 4 × 3 × 2 × 1 = 24. Это вычисление факториала.",r:30},
  {d:5,t:"Какое выражение проверяет, что число n простое?",o:["n % 2 != 0","Проверить делители от 2 до sqrt(n)","Проверить только n - 1","n / 2 == 0"],a:1,e:"Достаточно проверить делители от 2 до квадратного корня числа. Не забудь отдельно обработать n < 2.",r:35}
 ];
-// Correct a couple of intentionally complex choices by explicit indices:
-IT[4].a=2; // 8 + 9 = 17
-IT[7].a=1; // 6 + 8 = 14
+IT[4].a=2;
+IT[7].a=1;
 
 const MATH = [
  {d:1,t:"Реши уравнение: 3x − 7 = 20.",input:true,a:9,e:"3x = 27, следовательно x = 9.",r:10},
@@ -289,76 +359,92 @@ const EXPERT = [
 ];
 
 function openQuiz(type){
- let pool=type==="it"?IT:type==="math"?MATH:EXPERT;
- // Slightly favor questions appropriate to the player's level:
- let maxD=Math.min(5,Math.max(2,Math.ceil(state.level/2)+1));
- let available=pool.filter(q=>q.d<=maxD);
- if(type==="expert")available=pool;
- if(!available.length)available=pool;
- let q=available[Math.floor(Math.random()*available.length)];
- currentQuestion={...q,type};
- answeredThisQuestion=false;
- document.getElementById("overlay").style.display="flex";
- document.getElementById("qCategory").textContent=type==="it"?"💻 Информатика":type==="math"?"📐 Математика":"🔥 Эксперт";
- document.getElementById("qTitle").textContent="Испытание академии";
- document.getElementById("qDifficulty").textContent="Сложность: "+["","Начальный","Средний","Сложный","Продвинутый","Эксперт"][q.d]+" · Награда до "+q.r+" XP";
- document.getElementById("qText").textContent=q.t;
- document.getElementById("qCode").innerHTML=q.code?`<pre>${esc(q.code)}</pre>`:"";
- document.getElementById("qAnswers").innerHTML="";
- if(q.o){
-  document.getElementById("qAnswers").innerHTML=q.o.map((o,i)=>`<button class="option" data-answer="${i}" onclick="chooseOption(${i})">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join("");
- }else{
-  document.getElementById("qAnswers").innerHTML=`<label class="muted" for="answerInput">Твой ответ:</label><input id="answerInput" type="text" inputmode="decimal" placeholder="Введи ответ и нажми Проверить">`;
- }
- document.getElementById("qFeedback").innerHTML="";
- document.getElementById("checkBtn").style.display="inline-block";
- document.getElementById("nextBtn").style.display="none";
+  const pool=type==="it"?IT:type==="math"?MATH:EXPERT;
+  const maxD=Math.min(5,Math.max(2,Math.ceil(state.level/2)+1));
+  let available=type==="expert"?pool:pool.filter(q=>q.d<=maxD);
+  if(!available.length)available=pool;
+  const q=available[Math.floor(Math.random()*available.length)];
+  currentQuestion={...q,type};
+  answeredThisQuestion=false;
+
+  document.getElementById("overlay").style.display="flex";
+  document.getElementById("qCategory").textContent=type==="it"?"💻 Информатика":type==="math"?"📐 Математика":"🔥 Эксперт";
+  document.getElementById("qTitle").textContent="Испытание академии";
+  document.getElementById("qDifficulty").textContent="Сложность: "+["","Начальный","Средний","Сложный","Продвинутый","Эксперт"][q.d]+" · Награда до "+q.r+" XP";
+  document.getElementById("qText").textContent=q.t;
+  document.getElementById("qCode").innerHTML=q.code?`<pre>${esc(q.code)}</pre>`:"";
+  document.getElementById("qAnswers").innerHTML="";
+  if(q.o){
+    document.getElementById("qAnswers").innerHTML=q.o.map((o,i)=>`<button class="option" data-answer="${i}" onclick="chooseOption(${i})">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join("");
+  }else{
+    document.getElementById("qAnswers").innerHTML='<label class="muted" for="answerInput">Твой ответ:</label><input id="answerInput" type="text" inputmode="decimal" placeholder="Введи ответ и нажми Проверить">';
+  }
+  document.getElementById("qFeedback").innerHTML="";
+  document.getElementById("checkBtn").style.display="inline-block";
+  document.getElementById("nextBtn").style.display="none";
 }
 function chooseOption(i){
- if(answeredThisQuestion)return;
- document.querySelectorAll("[data-answer]").forEach(b=>b.style.outline="none");
- let el=document.querySelector(`[data-answer="${i}"]`);
- if(el){el.style.outline="2px solid #60a5fa";document.getElementById("answerInput")?.remove()}
- currentQuestion.selected=i;
+  if(answeredThisQuestion)return;
+  document.querySelectorAll("[data-answer]").forEach(b=>b.style.outline="none");
+  const el=document.querySelector(`[data-answer="${i}"]`);
+  if(el)el.style.outline="2px solid #ffda67";
+  currentQuestion.selected=i;
 }
 function checkAnswer(){
- if(!currentQuestion||answeredThisQuestion)return;
- let q=currentQuestion,correct=false,answerText="";
- if(q.o){
-  if(q.selected===undefined){document.getElementById("qFeedback").innerHTML='<div class="feedback wrong">Сначала выбери вариант ответа.</div>';return}
-  correct=q.selected===q.a;
-  answerText=q.o[q.a];
- }else{
-  let input=document.getElementById("answerInput");
-  if(!input||input.value.trim()===""){document.getElementById("qFeedback").innerHTML='<div class="feedback wrong">Введи свой ответ.</div>';return}
-  let value=Number(input.value.trim().replace(",","."));
-  correct=Number.isFinite(value)&&Math.abs(value-Number(q.a))<0.000001;
-  answerText=String(q.a);
- }
- answeredThisQuestion=true;
- state.solved++;
- if(correct){
-  state.correct++;
-  let base={knowledge:Math.ceil(q.r/3),xp:q.r};
-  reward(base);
-  logEvent("Правильный ответ! Академия получила новые знания.");
- }else{
-  state.knowledge+=1;
-  logEvent("Задание не решено. Попробуй ещё раз в следующий раз.");
- }
- document.getElementById("qFeedback").innerHTML=`<div class="feedback ${correct?"correct":"wrong"}"><b>${correct?"✅ Правильно!":"❌ Пока неправильно."}</b><br>${esc(q.e)}<br><br><b>Ответ: ${esc(answerText)}</b>${correct?`<br>Награда: +${Math.round(q.r*(state.tech.scholarship?1.5:1))} XP и знания.`:"<br>За попытку ты получил 1 знание."}</div>`;
- document.getElementById("checkBtn").style.display="none";
- document.getElementById("nextBtn").style.display="inline-block";
- render();
+  if(!currentQuestion||answeredThisQuestion)return;
+  const q=currentQuestion;
+  let correct=false,answerText="";
+  if(q.o){
+    if(q.selected===undefined){
+      document.getElementById("qFeedback").innerHTML='<div class="feedback wrong">Сначала выбери вариант ответа.</div>';
+      return;
+    }
+    correct=q.selected===q.a;
+    answerText=q.o[q.a];
+  }else{
+    const input=document.getElementById("answerInput");
+    if(!input||input.value.trim()===""){
+      document.getElementById("qFeedback").innerHTML='<div class="feedback wrong">Введи свой ответ.</div>';
+      return;
+    }
+    const value=Number(input.value.trim().replace(",","."));
+    correct=Number.isFinite(value)&&Math.abs(value-Number(q.a))<0.000001;
+    answerText=String(q.a);
+  }
+  answeredThisQuestion=true;
+  state.solved++;
+  if(correct){
+    state.correct++;
+    reward({knowledge:Math.ceil(q.r/3),xp:q.r});
+    logEvent("Правильный ответ! Академия получила новые знания.");
+  }else{
+    state.knowledge+=1;
+    logEvent("Задание не решено. Попробуй ещё раз в следующий раз.");
+  }
+  document.getElementById("qFeedback").innerHTML=`<div class="feedback ${correct?"correct":"wrong"}"><b>${correct?"✅ Правильно!":"❌ Пока неправильно."}</b><br>${esc(q.e)}<br><br><b>Ответ: ${esc(answerText)}</b>${correct?`<br>Награда: +${Math.round(q.r*(state.tech.scholarship?1.5:1))} XP и знания.`:"<br>За попытку ты получил 1 знание."}</div>`;
+  document.getElementById("checkBtn").style.display="none";
+  document.getElementById("nextBtn").style.display="inline-block";
+  render();
 }
-function nextQuestion(){closeQuiz();openQuiz(currentQuestion.type)}
-function closeQuiz(){document.getElementById("overlay").style.display="none";currentQuestion=null}
+function nextQuestion(){
+  if(!currentQuestion)return;
+  const type=currentQuestion.type;
+  closeQuiz();
+  openQuiz(type);
+}
+function closeQuiz(){
+  document.getElementById("overlay").style.display="none";
+  currentQuestion=null;
+}
 function showHelp(){
- alert("MINDORIA — правила\n\n1. Строй здания на свободных клетках карты.\n2. Лесопилки производят дерево, каменоломни — камень, библиотеки — знания, солнечные станции — энергию.\n3. Нажимай «Следующий ход», чтобы получить производство.\n4. Решай задачи в Академии, чтобы получать знания и опыт.\n5. Исследуй технологии для улучшения производства.\n6. Прогресс сохраняется в браузере на этом устройстве.");
+  alert("MINDORIA — правила\n\n1. Строй здания на свободных клетках карты.\n2. Лесопилки производят дерево, каменоломни — камень, библиотеки — знания, солнечные станции — энергию.\n3. Нажимай «Следующий ход», чтобы получить производство.\n4. Решай задачи в Академии, чтобы получать знания и опыт.\n5. Исследуй технологии для улучшения производства.\n6. Прогресс сохраняется в браузере на этом устройстве.");
 }
 function resetGame(){
- if(!confirm("Начать новую игру? Текущий прогресс будет сброшен на этом устройстве."))return;
- state=freshState();selectedCell=null;logEvent("Началась новая цивилизация.");render();
+  if(!confirm("Начать новую игру? Текущий прогресс будет сброшен на этом устройстве."))return;
+  state=freshState();
+  selectedCell=null;
+  logEvent("Началась новая цивилизация.");
+  render();
 }
 render();
 </script>
