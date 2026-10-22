@@ -3,410 +3,363 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mindoria — Империя знаний</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mindoria — City of Knowledge</title>
 <style>
-:root {
-  --bg:#101827; --panel:#192438; --line:#34445f;
-  --text:#f2f5fb; --muted:#aab7cb; --gold:#ffd166;
-  --green:#70e1a1; --purple:#6555dc;
-}
-* { box-sizing:border-box }
-body {
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:Arial,sans-serif;
-}
-button { cursor:pointer; font:inherit; font-weight:bold;
-  color:var(--text); background:#283750; border:1px solid var(--line);
-  border-radius:9px; padding:10px;
-}
-button:hover { filter:brightness(1.2) }
-button:disabled { opacity:.4; cursor:not-allowed }
-.primary { background:var(--purple) }
-header {
-  padding:18px; display:flex; justify-content:space-between;
-  align-items:center; gap:12px; flex-wrap:wrap;
-  background:#151f30; border-bottom:1px solid var(--line);
-}
-h1 { margin:0; font-size:24px }
-header p { color:var(--muted); margin:5px 0 0; font-size:12px }
-.resources {
-  display:grid; grid-template-columns:repeat(5,1fr);
-  gap:8px; padding:14px;
-}
-.resource,.panel {
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:12px;
-}
-.resource { padding:12px }
-.resource small { color:var(--muted) }
-.amount { font-size:21px; font-weight:bold; margin-top:5px }
-main { padding:0 14px 25px; max-width:1300px; margin:auto }
-.layout { display:grid; grid-template-columns:1.5fr 1fr; gap:12px }
-.panel { overflow:hidden; margin-bottom:12px }
-.panel h2 { font-size:16px; margin:0 }
-.panel-head { padding:15px; border-bottom:1px solid var(--line) }
-.content { padding:14px }
-.city {
-  padding:12px; display:grid; grid-template-columns:repeat(6,1fr);
-  gap:6px; background:#12251f;
-}
-.tile {
-  aspect-ratio:1; display:flex; flex-direction:column;
-  justify-content:center; align-items:center; gap:4px;
-  padding:2px; background:#28523e; border-color:#47775b;
-}
-.tile.selected { outline:3px solid var(--gold) }
-.tile .emoji { font-size:clamp(18px,3vw,32px) }
-.tile small { font-size:clamp(8px,1vw,11px); overflow:hidden;
-  max-width:100%; white-space:nowrap }
-.muted { color:var(--muted); font-size:13px; line-height:1.5 }
-.list { display:grid; gap:8px; margin-top:12px }
-.list button { text-align:left; line-height:1.5 }
-.log-item { background:#111b2b; padding:9px; border-radius:7px;
-  font-size:12px; margin-bottom:7px; color:#cbd6e8 }
-.overlay {
-  display:none; position:fixed; inset:0; z-index:5;
-  background:#000b; padding:15px; align-items:center; justify-content:center;
-}
-.overlay.show { display:flex }
-.modal {
-  width:min(550px,100%); max-height:90vh; overflow:auto;
-  background:var(--panel); border:1px solid var(--line);
-  border-radius:15px; padding:20px;
-}
-.modal h2 { margin-top:0 }
-.answers { display:grid; gap:8px }
-.answers button { text-align:left }
-.feedback { margin-top:12px; padding:12px; background:#101827;
-  border-radius:9px; line-height:1.5; font-size:14px }
-footer { text-align:center; color:var(--muted); padding:20px; font-size:12px }
-@media(max-width:800px) {
-  .layout { grid-template-columns:1fr }
-  .resources { grid-template-columns:repeat(2,1fr) }
-  .resource:last-child { grid-column:span 2 }
-}
+:root{--bg:#0b1020;--panel:#151e32;--panel2:#1c2940;--text:#edf3ff;--muted:#9eafca;--blue:#60a5fa;--green:#34d399;--gold:#fbbf24;--red:#fb7185}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Arial,sans-serif}
+header{padding:20px 16px;background:linear-gradient(120deg,#182c4c,#10172a);border-bottom:1px solid #293650}
+h1{margin:0;font-size:27px}h2{font-size:20px;margin:0 0 12px}h3{margin:0 0 8px}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+main{max-width:1100px;margin:auto;padding:16px;display:grid;gap:15px}
+.panel{background:var(--panel);border:1px solid #293650;border-radius:16px;padding:16px;min-width:0}
+.resources{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.resource{background:var(--panel2);padding:12px 5px;border-radius:12px;text-align:center}
+.resource .emoji{font-size:22px}.resource strong{display:block;font-size:19px}.resource small{color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+button,select,input{font:inherit}
+button{border:0;border-radius:10px;padding:10px 13px;background:#2c4264;color:white;cursor:pointer;font-weight:650}
+button:hover{filter:brightness(1.16)}button:disabled{opacity:.4;cursor:not-allowed}
+.primary{background:#2563eb}.green{background:#087f5b}.gold{background:#946500}.danger{background:#7f263c}
+.muted{color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+.cell{min-height:82px;padding:5px;background:#111a2b;border:1px dashed #3b4b65;border-radius:11px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:4px}
+.cell b{font-size:25px}.cell span{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.cell.built{background:#203651;border-style:solid;border-color:#45688d}
+.columns{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.item{background:var(--panel2);padding:12px;border-radius:12px;margin-top:9px}
+.item p{font-size:13px;color:var(--muted);margin:5px 0 10px}
+.item button{font-size:12px}
+.progress{height:7px;background:#28354b;border-radius:9px;overflow:hidden;margin-top:7px}
+.progress div{height:100%;background:var(--green)}
+.overlay{position:fixed;inset:0;background:#030711df;display:none;align-items:center;justify-content:center;padding:14px;z-index:10;overflow:auto}
+.modal{background:var(--panel);border:1px solid #3a4d6d;border-radius:18px;width:100%;max-width:650px;max-height:94vh;overflow:auto;padding:20px}
+.modalHead{display:flex;justify-content:space-between;gap:10px;align-items:start}
+.question{font-size:18px;line-height:1.5;margin:18px 0}
+pre{background:#090f1d;padding:14px;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;color:#b9e0ff;overflow-x:auto}
+.option{display:block;width:100%;text-align:left;margin:8px 0;background:#202d44;border:1px solid #364863}
+input[type=text],input[type=number]{width:100%;padding:12px;border-radius:10px;border:1px solid #40516d;background:#0d1526;color:white;margin:7px 0}
+.feedback{margin-top:12px;padding:12px;border-radius:10px;line-height:1.5}
+.correct{background:#0d382e;border:1px solid #1b765b}.wrong{background:#481e2b;border:1px solid #94374e}
+.tag{display:inline-block;background:#263954;padding:4px 8px;border-radius:20px;font-size:12px;color:#c5d9f5}
+footer{text-align:center;padding:20px;color:var(--muted);font-size:12px}
+@media(max-width:650px){.resources{grid-template-columns:repeat(3,1fr)}.columns{grid-template-columns:1fr}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.cell{min-height:75px}h1{font-size:23px}}
 </style>
 </head>
 <body>
-
 <header>
-  <div>
-    <h1>🏛️ Mindoria</h1>
-    <p>Империя знаний — учись, строй, развивайся!</p>
-  </div>
-  <div>
-    <button onclick="help()">📜 Правила</button>
-    <button onclick="resetGame()">↻ Сбросить</button>
-  </div>
+  <h1>🏙️ Mindoria</h1>
+  <div class="sub">City of Knowledge · Строй. Исследуй. Развивайся.</div>
 </header>
 
-<section class="resources">
-  <div class="resource"><small>🪵 Дерево</small><div class="amount" id="wood">0</div></div>
-  <div class="resource"><small>🪨 Камень</small><div class="amount" id="stone">0</div></div>
-  <div class="resource"><small>⚡ Энергия</small><div class="amount" id="energy">0</div></div>
-  <div class="resource"><small>📘 Знания</small><div class="amount" id="knowledge">0</div></div>
-  <div class="resource"><small>✨ Опыт</small><div class="amount" id="xp">0</div><small id="level">Уровень 1</small></div>
-</section>
-
 <main>
-<div class="layout">
   <section class="panel">
-    <div class="panel-head">
-      <h2>🌿 Твой город</h2>
-      <p class="muted">Выбери свободную клетку и построй здание.</p>
+    <div class="row" style="justify-content:space-between">
+      <div><h2>Твоя цивилизация</h2><div class="muted" id="levelText">Уровень 1</div></div>
+      <div class="tag" id="turnText">Ход 1</div>
     </div>
-    <div class="city" id="city"></div>
-    <div class="content muted" id="selectedInfo"></div>
+    <div class="progress"><div id="xpBar" style="width:0%"></div></div>
+    <div class="muted" id="xpText" style="margin-top:5px">0 / 100 XP</div>
   </section>
 
-  <div>
-    <section class="panel">
-      <div class="panel-head"><h2>🏗️ Строительство</h2></div>
-      <div class="content">
-        <div class="muted">Строй здания, чтобы производить ресурсы.</div>
-        <div class="list" id="buildings"></div>
-      </div>
-    </section>
+  <section class="resources">
+    <div class="resource"><div class="emoji">🪵</div><strong id="wood">0</strong><small>Дерево</small></div>
+    <div class="resource"><div class="emoji">🪨</div><strong id="stone">0</strong><small>Камень</small></div>
+    <div class="resource"><div class="emoji">⚡</div><strong id="energy">0</strong><small>Энергия</small></div>
+    <div class="resource"><div class="emoji">🧠</div><strong id="knowledge">0</strong><small>Знания</small></div>
+    <div class="resource"><div class="emoji">🏆</div><strong id="xp">0</strong><small>Опыт</small></div>
+  </section>
 
-    <section class="panel">
-      <div class="panel-head"><h2>🔬 Технологии</h2></div>
-      <div class="content">
-        <div class="muted" id="techInfo"></div>
-        <div class="list" id="techs"></div>
-      </div>
-    </section>
+  <section class="panel">
+    <div class="row" style="justify-content:space-between;margin-bottom:12px">
+      <h2>🗺️ Карта города</h2>
+      <button class="primary" onclick="nextTurn()">⏩ Следующий ход</button>
+    </div>
+    <div class="grid" id="city"></div>
+    <p class="muted">Нажми на свободную клетку, чтобы построить здание. Производство происходит каждый ход.</p>
+  </section>
 
+  <div class="columns">
     <section class="panel">
-      <div class="panel-head"><h2>🎯 Учебная экспедиция</h2></div>
-      <div class="content">
-        <p class="muted">Решай задачи и получай ресурсы для своей империи.</p>
-        <div class="list">
-          <button class="primary" onclick="quiz('math')">➗ Математика</button>
-          <button class="primary" onclick="quiz('it')">💻 Информатика</button>
-        </div>
-      </div>
+      <h2>🏗️ Строительство</h2>
+      <div id="buildingList"></div>
     </section>
-
     <section class="panel">
-      <div class="panel-head"><h2>📖 Летопись</h2></div>
-      <div class="content" id="log"></div>
+      <h2>🔬 Исследования</h2>
+      <div id="techList"></div>
     </section>
   </div>
-</div>
-</main>
 
-<footer>Mindoria MVP · Прогресс сохраняется в текущем браузере.</footer>
+  <section class="panel">
+    <h2>🎓 Академия знаний</h2>
+    <p class="muted">Решай практические задачи по Java и математике. Сложные задания дают больше наград.</p>
+    <div class="row">
+      <button class="primary" onclick="openQuiz('it')">💻 Информатика</button>
+      <button class="green" onclick="openQuiz('math')">📐 Математика</button>
+      <button class="gold" onclick="openQuiz('expert')">🔥 Экспертный вызов</button>
+    </div>
+    <div class="item">
+      <div class="row" style="justify-content:space-between">
+        <b>Статистика академии</b>
+        <span class="tag" id="stats">0 решено</span>
+      </div>
+      <p id="statsText">Начни с первой задачи и зарабатывай знания для своего города.</p>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>📜 Журнал событий</h2>
+    <div id="log" class="muted">Добро пожаловать в Mindoria! Построй первый город знаний.</div>
+    <div class="row" style="margin-top:14px">
+      <button onclick="showHelp()">❔ Правила</button>
+      <button class="danger" onclick="resetGame()">♻️ Новая игра</button>
+    </div>
+  </section>
+</main>
 
 <div class="overlay" id="overlay">
   <div class="modal">
-    <h2 id="questionTitle">Задание</h2>
-    <div id="questionBody"></div>
-    <div id="feedback"></div>
-    <div class="list">
-      <button onclick="closeQuiz()">Вернуться в город</button>
+    <div class="modalHead">
+      <div>
+        <span class="tag" id="qCategory">Академия</span>
+        <h2 id="qTitle" style="margin-top:10px">Задание</h2>
+      </div>
+      <button onclick="closeQuiz()">✕</button>
+    </div>
+    <div class="muted" id="qDifficulty"></div>
+    <div class="question" id="qText"></div>
+    <div id="qCode"></div>
+    <div id="qAnswers"></div>
+    <div id="qFeedback"></div>
+    <div class="row" style="margin-top:14px">
+      <button class="primary" id="checkBtn" onclick="checkAnswer()">Проверить ответ</button>
+      <button id="nextBtn" style="display:none" onclick="nextQuestion()">Следующая задача →</button>
     </div>
   </div>
 </div>
 
+<footer>Mindoria MVP · Твой город, твои решения, твои знания.</footer>
+
 <script>
-const KEY = "mindoria_save_v1";
-
+const SAVE_KEY = "mindoria_save_v2";
 const buildings = {
-  house: {
-    name:"Дом", icon:"🏠", cost:{wood:12,stone:4},
-    desc:"Увеличивает население."
-  },
-  sawmill: {
-    name:"Лесопилка", icon:"🪓", cost:{wood:16,stone:6},
-    desc:"+4 дерева за ход.", production:{wood:4}
-  },
-  library: {
-    name:"Библиотека", icon:"📚", cost:{wood:14,stone:10},
-    desc:"+2 знания за ход.", production:{knowledge:2}
-  },
-  workshop: {
-    name:"Мастерская", icon:"🛠️", cost:{wood:18,stone:12},
-    desc:"+3 камня, −1 энергии за ход.",
-    tech:"engineering", production:{stone:3,energy:-1}
-  },
-  solar: {
-    name:"Солнечная станция", icon:"☀️",
-    cost:{wood:20,stone:14,knowledge:8},
-    desc:"+4 энергии за ход.", tech:"energy",
-    production:{energy:4}
-  },
-  academy: {
-    name:"Академия", icon:"🎓",
-    cost:{wood:25,stone:20,knowledge:18},
-    desc:"+4 знания за ход.", tech:"scholarship",
-    production:{knowledge:4}
-  }
+  house:{name:"Дом",icon:"🏠",cost:{wood:15,stone:5},desc:"Увеличивает население и приносит опыт.",produce:{xp:2}},
+  sawmill:{name:"Лесопилка",icon:"🪵",cost:{wood:12,stone:8},desc:"Производит дерево каждый ход.",produce:{wood:8}},
+  quarry:{name:"Каменоломня",icon:"⛏️",cost:{wood:10,stone:12},desc:"Добывает камень.",produce:{stone:6}},
+  library:{name:"Библиотека",icon:"📚",cost:{wood:20,stone:10},desc:"Производит знания.",produce:{knowledge:4}},
+  solar:{name:"Солнечная станция",icon:"☀️",cost:{wood:15,stone:15},desc:"Производит энергию.",produce:{energy:6}},
+  academy:{name:"Академия",icon:"🎓",cost:{wood:30,stone:25,knowledge:10},desc:"Усиливает награды за задания.",produce:{knowledge:2,xp:3}}
 };
-
-const technologies = {
-  engineering:{name:"Инженерное дело",cost:18,desc:"Открывает мастерскую."},
-  energy:{name:"Энергетика",cost:28,desc:"Открывает солнечную станцию.",requires:"engineering"},
-  scholarship:{name:"Высшее образование",cost:40,desc:"Открывает академию.",requires:"engineering"}
-};
-
-const questions = {
-  math:[
-    {q:"3 станка производят по 4 детали за ход. Сколько деталей за 5 ходов?",a:["12","20","60","15"],c:2,e:"3 × 4 × 5 = 60.",r:{knowledge:8,wood:4,xp:12}},
-    {q:"Нужно 18 камней, есть 7. Сколько не хватает?",a:["9","10","11","12"],c:2,e:"18 − 7 = 11.",r:{knowledge:7,stone:5,xp:10}},
-    {q:"4 библиотеки дают по 2 знания за ход. Сколько за 3 хода?",a:["12","18","24","6"],c:2,e:"4 × 2 × 3 = 24.",r:{knowledge:8,energy:2,xp:12}},
-    {q:"Было 40 дерева, потратили 25. Сколько осталось?",a:["10","15","20","65"],c:1,e:"40 − 25 = 15.",r:{knowledge:6,wood:5,xp:9}},
-    {q:"На поле 6 столбцов и 4 ряда. Сколько клеток?",a:["10","20","24","26"],c:2,e:"6 × 4 = 24.",r:{knowledge:7,stone:3,xp:10}},
-    {q:"Из 30 необходимых знаний у тебя 18. Какой это процент?",a:["40%","50%","60%","70%"],c:2,e:"18 / 30 × 100% = 60%.",r:{knowledge:8,wood:3,xp:12}}
-  ],
-  it:[
-    {q:"Что получится: 2 + 3 * 4?",a:["20","14","24","9"],c:1,e:"Сначала умножение: 2 + 12 = 14.",r:{knowledge:8,energy:3,xp:12}},
-    {q:"Что возвращает 10 % 3 в JavaScript?",a:["3","1","0","10"],c:1,e:"Остаток от деления 10 на 3 равен 1.",r:{knowledge:7,wood:4,xp:10}},
-    {q:"Какой тип данных хранит текст в JavaScript?",a:["boolean","number","string","loop"],c:2,e:"Тип string хранит строки текста.",r:{knowledge:7,stone:3,xp:10}},
-    {q:"Какой цикл часто используют, когда известно число повторений?",a:["for","if","const","return"],c:0,e:"Цикл for подходит для повторений с известным количеством.",r:{knowledge:8,energy:2,xp:12}},
-    {q:"Что означает score >= 10?",a:["Меньше 10","Только равно 10","Больше или равно 10","Всегда 0"],c:2,e:">= означает «больше или равно».",r:{knowledge:8,wood:3,xp:11}},
-    {q:"Как объявить переменную, которую нельзя переназначить?",a:["let","const","varies","fixed"],c:1,e:"Для этого используют const.",r:{knowledge:8,stone:4,xp:12}}
-  ]
+const techs = {
+  engineering:{name:"Инженерия",icon:"⚙️",cost:{knowledge:20,stone:15},desc:"Лесопилки и каменоломни производят на 50% больше."},
+  energy:{name:"Энергетика",icon:"🔋",cost:{knowledge:25,energy:10},desc:"Солнечные станции производят вдвое больше энергии."},
+  scholarship:{name:"Научный метод",icon:"🧪",cost:{knowledge:35,wood:15},desc:"Увеличивает награды за правильные ответы."}
 };
 
 function freshState(){
-  return {
-    res:{wood:48,stone:32,energy:12,knowledge:12,xp:0},
-    grid:Array(24).fill(null), selected:0, unlocked:[],
-    log:["Империя основана! Построй лесопилку и библиотеку."],
-    answered:{math:[],it:[]},turn:0
-  };
+ return {wood:48,stone:32,energy:12,knowledge:12,xp:0,turn:1,level:1,
+  cells:Array(24).fill(null),tech:{},solved:0,correct:0,answered:{},log:[]};
 }
-function load(){
-  try{
-    const s=JSON.parse(localStorage.getItem(KEY));
-    if(s && s.res && Array.isArray(s.grid) && s.grid.length===24) return s;
-  }catch(e){}
-  return freshState();
-}
-let state=load(), current=null;
+let state;
+try{state=JSON.parse(localStorage.getItem(SAVE_KEY))||freshState()}catch(e){state=freshState()}
+if(!state.cells||state.cells.length!==24)state=freshState();
+let selectedCell=null,currentQuestion=null,answeredThisQuestion=false;
 
-function save(){
-  try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}
-}
-function count(id){return state.grid.filter(x=>x===id).length}
-function total(){return state.grid.filter(Boolean).length}
-function rate(key){
-  return state.grid.reduce((n,id)=>n+(id && buildings[id].production ? buildings[id].production[key]||0:0),0);
-}
-function canPay(cost){
-  return Object.entries(cost).every(([k,v])=>state.res[k]>=v);
-}
-function costText(cost){
-  const icons={wood:"🪵",stone:"🪨",energy:"⚡",knowledge:"📘"};
-  return Object.entries(cost).map(([k,v])=>icons[k]+" "+v).join(" · ");
-}
-function log(msg){
-  state.log.unshift(msg);state.log=state.log.slice(0,5);
-}
+function save(){localStorage.setItem(SAVE_KEY,JSON.stringify(state))}
+function logEvent(msg){state.log.unshift("Ход "+state.turn+": "+msg);state.log=state.log.slice(0,5)}
+function hasBuilding(id){return state.cells.some(c=>c===id)}
+function countBuilding(id){return state.cells.filter(c=>c===id).length}
+function fmtCost(cost){return Object.entries(cost).map(([k,v])=>({wood:"🪵",stone:"🪨",energy:"⚡",knowledge:"🧠"}[k]+" "+v)).join(" · ")}
+function canAfford(cost){return Object.entries(cost).every(([k,v])=>(state[k]||0)>=v)}
+function pay(cost){Object.entries(cost).forEach(([k,v])=>state[k]-=v)}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
 function render(){
-  ["wood","stone","energy","knowledge","xp"].forEach(k=>{
-    document.getElementById(k).textContent=Math.floor(state.res[k]);
-  });
-  document.getElementById("level").textContent="Уровень "+(Math.floor(state.res.xp/50)+1);
+ ["wood","stone","energy","knowledge","xp"].forEach(k=>document.getElementById(k).textContent=Math.floor(state[k]||0));
+ document.getElementById("levelText").textContent="Уровень "+state.level;
+ document.getElementById("turnText").textContent="Ход "+state.turn;
+ document.getElementById("xpText").textContent=(state.xp%100)+" / 100 XP до следующего уровня";
+ document.getElementById("xpBar").style.width=(state.xp%100)+"%";
+ document.getElementById("stats").textContent=state.solved+" решено";
+ document.getElementById("statsText").textContent="Правильных ответов: "+state.correct+" из "+state.solved+".";
+ document.getElementById("log").innerHTML=state.log.length?state.log.map(esc).join("<br>"):"Пока событий нет.";
 
-  const city=document.getElementById("city");
-  city.innerHTML="";
-  state.grid.forEach((id,i)=>{
-    const b=id?buildings[id]:null;
-    const btn=document.createElement("button");
-    btn.className="tile"+(state.selected===i?" selected":"");
-    btn.innerHTML=b
-      ? `<span class="emoji">${b.icon}</span><small>${b.name}</small>`
-      : `<span class="emoji">🌱</span><small>Участок</small>`;
-    btn.title=b?b.name:"Свободный участок";
-    btn.onclick=()=>{state.selected=i;render()};
-    city.appendChild(btn);
-  });
+ document.getElementById("city").innerHTML=state.cells.map((id,i)=>{
+  if(!id)return `<button class="cell" onclick="selectCell(${i})"><b>＋</b><span>Свободно</span></button>`;
+  let b=buildings[id];
+  return `<button class="cell built" onclick="selectCell(${i})"><b>${b.icon}</b><span>${b.name}</span></button>`;
+ }).join("");
 
-  document.getElementById("selectedInfo").textContent=
-    state.grid[state.selected]
-      ? "Выбрано: "+buildings[state.grid[state.selected]].name+". Выбери свободную клетку."
-      : "Выбран свободный участок №"+(state.selected+1)+".";
+ document.getElementById("buildingList").innerHTML=Object.entries(buildings).map(([id,b])=>
+  `<div class="item"><b>${b.icon} ${b.name}</b><p>${b.desc}</p><div class="muted">${fmtCost(b.cost)}</div><button style="margin-top:9px" onclick="build('${id}')" ${selectedCell===null||state.cells[selectedCell]||!canAfford(b.cost)?"disabled":""}>${selectedCell===null?"Выбери клетку":"Построить"}</button></div>`
+ ).join("");
 
-  const bl=document.getElementById("buildings");
-  bl.innerHTML="";
-  Object.entries(buildings).forEach(([id,b])=>{
-    const locked=b.tech&&!state.unlocked.includes(b.tech);
-    const btn=document.createElement("button");
-    btn.disabled=!!state.grid[state.selected]||locked||!canPay(b.cost)||total()>=24;
-    btn.innerHTML=`${b.icon} <b>${b.name}</b><br><small>${b.desc}</small><br><small>${costText(b.cost)}${locked?" · 🔒 Нужна технология":""}</small>`;
-    btn.onclick=()=>build(id);
-    bl.appendChild(btn);
-  });
-
-  const tl=document.getElementById("techs");
-  tl.innerHTML="";
-  Object.entries(technologies).forEach(([id,t])=>{
-    const done=state.unlocked.includes(id);
-    const canUnlock=(!t.requires||state.unlocked.includes(t.requires))&&state.res.knowledge>=t.cost;
-    const btn=document.createElement("button");
-    btn.disabled=done||!canUnlock;
-    btn.innerHTML=`${done?"✅":"🔬"} <b>${t.name}</b><br><small>${t.desc}</small><br><small>${done?"Изучено":"Цена: "+t.cost+" знаний"}</small>`;
-    btn.onclick=()=>research(id);
-    tl.appendChild(btn);
-  });
-  document.getElementById("techInfo").textContent=
-    `Изучено технологий: ${state.unlocked.length}/${Object.keys(technologies).length}.`;
-  document.getElementById("log").innerHTML=state.log.map(x=>`<div class="log-item">${safe(x)}</div>`).join("");
-  save();
+ document.getElementById("techList").innerHTML=Object.entries(techs).map(([id,t])=>
+  `<div class="item"><b>${t.icon} ${t.name}</b><p>${t.desc}</p><div class="muted">${fmtCost(t.cost)}</div><button style="margin-top:9px" onclick="research('${id}')" ${state.tech[id]||!canAfford(t.cost)?"disabled":""}>${state.tech[id]?"Изучено ✓":"Исследовать"}</button></div>`
+ ).join("");
+ save();
 }
-function safe(s){
-  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function selectCell(i){
+ selectedCell=i;
+ if(state.cells[i]){logEvent("На этой клетке уже есть здание.");}
+ render();
+ if(!state.cells[i])document.getElementById("buildingList").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
 function build(id){
-  const b=buildings[id];
-  if(state.grid[state.selected]||!canPay(b.cost)||total()>=24)return;
-  if(b.tech&&!state.unlocked.includes(b.tech))return;
-  Object.entries(b.cost).forEach(([k,v])=>state.res[k]-=v);
-  state.grid[state.selected]=id;
-  log("Построено здание: "+b.name+".");
-  const next=state.grid.findIndex(x=>!x);
-  if(next>=0)state.selected=next;
-  render();
+ if(selectedCell===null||state.cells[selectedCell])return;
+ let b=buildings[id];if(!canAfford(b.cost)){logEvent("Недостаточно ресурсов для строительства.");render();return}
+ pay(b.cost);state.cells[selectedCell]=id;
+ logEvent("Построено: "+b.name+".");selectedCell=null;render();
 }
 function research(id){
-  const t=technologies[id];
-  if(state.unlocked.includes(id)||state.res.knowledge<t.cost)return;
-  if(t.requires&&!state.unlocked.includes(t.requires))return;
-  state.res.knowledge-=t.cost;
-  state.unlocked.push(id);
-  log("Изучена технология: "+t.name+".");
-  render();
+ let t=techs[id];if(state.tech[id]||!canAfford(t.cost))return;
+ pay(t.cost);state.tech[id]=true;logEvent("Исследована технология: "+t.name+".");render();
 }
-function turn(){
-  state.turn++;
-  ["wood","stone","energy","knowledge"].forEach(k=>{
-    state.res[k]=Math.max(0,state.res[k]+rate(k));
-  });
-  if(total()>3)state.res.energy=Math.max(0,state.res.energy-1);
-  log("Ход "+state.turn+": город произвёл ресурсы.");
+function nextTurn(){
+ state.turn++;
+ let gain={wood:0,stone:0,energy:0,knowledge:0,xp:0};
+ state.cells.forEach(id=>{
+  if(!id)return;
+  Object.entries(buildings[id].produce).forEach(([k,v])=>gain[k]+=v);
+ });
+ if(state.tech.engineering){gain.wood+=countBuilding("sawmill")*4;gain.stone+=countBuilding("quarry")*3}
+ if(state.tech.energy)gain.energy+=countBuilding("solar")*6;
+ Object.entries(gain).forEach(([k,v])=>state[k]=(state[k]||0)+v);
+ checkLevel();logEvent("Производство завершено. Ресурсы города увеличены.");render();
 }
-function quiz(subject){
-  const pool=questions[subject];
-  let unused=pool.map((q,i)=>({...q,index:i})).filter(q=>!state.answered[subject].includes(q.index));
-  if(!unused.length){state.answered[subject]=[];unused=pool.map((q,i)=>({...q,index:i}))}
-  const q=unused[Math.floor(Math.random()*unused.length)];
-  current={subject,q};
-  document.getElementById("questionTitle").textContent=subject==="math"?"➗ Математика":"💻 Информатика";
-  document.getElementById("feedback").innerHTML="";
-  const body=document.getElementById("questionBody");
-  body.innerHTML=`<p>${safe(q.q)}</p><div class="answers" id="answers"></div>`;
-  q.a.forEach((a,i)=>{
-    const btn=document.createElement("button");
-    btn.textContent=String.fromCharCode(65+i)+". "+a;
-    btn.onclick=()=>answer(i);
-    document.getElementById("answers").appendChild(btn);
-  });
-  document.getElementById("overlay").classList.add("show");
+function checkLevel(){
+ let next=Math.floor(state.xp/100)+1;
+ if(next>state.level){state.level=next;logEvent("Новый уровень: "+state.level+"!")}
 }
-function answer(i){
-  if(!current)return;
-  const {subject,q}=current;
-  document.querySelectorAll("#answers button").forEach(b=>b.disabled=true);
-  const correct=i===q.c;
-  if(correct){
-    Object.entries(q.r).forEach(([k,v])=>state.res[k]+=v);
-    state.answered[subject].push(q.index);
-    turn();
-    log("Верный ответ! Получены знания и опыт.");
-    document.getElementById("feedback").innerHTML=
-      `<div class="feedback">✅ <b>Верно!</b><br>${safe(q.e)}<br><br>Награда: ${costText(q.r).replaceAll("📘","📘").replaceAll("🪵","🪵")} · ✨ ${q.r.xp||0} опыта.</div>`;
-  }else{
-    document.getElementById("feedback").innerHTML=
-      `<div class="feedback">💡 <b>Пока неверно.</b><br>${safe(q.e)}<br>Награда не начислена — попробуй ещё раз на следующем задании.</div>`;
-    log("Разобрана ошибка в учебном задании.");
-  }
-  render();
+function reward(base){
+ let mult=state.tech.scholarship?1.5:1;
+ let bonus=1+countBuilding("academy")*.15;
+ state.knowledge+=Math.round(base.knowledge*mult*bonus);
+ state.xp+=Math.round(base.xp*mult*bonus);
+ state.energy+=base.energy||0;
+ checkLevel();
 }
-function closeQuiz(){
-  document.getElementById("overlay").classList.remove("show");
-  current=null;
+
+const IT = [
+ {d:1,t:"Что выведет программа?",code:"int a = 7;\nint b = 3;\nSystem.out.println(a / b);",o:["2.333","2","3","Ошибка"],a:1,e:"При делении двух int в Java дробная часть отбрасывается. Результат — 2.",r:10},
+ {d:1,t:"Что выведет программа?",code:"int x = 5;\nx += 3 * 2;\nSystem.out.println(x);",o:["16","11","13","10"],a:1,e:"Сначала 3 * 2 = 6, затем 5 + 6 = 11.",r:10},
+ {d:2,t:"Какое значение будет напечатано?",code:"int sum = 0;\nfor (int i = 1; i <= 4; i++) {\n  sum += i;\n}\nSystem.out.println(sum);",o:["4","6","10","11"],a:2,e:"Цикл складывает 1 + 2 + 3 + 4 = 10.",r:15},
+ {d:2,t:"Сколько раз выполнится тело цикла?",code:"for (int i = 2; i < 11; i += 3) {\n  System.out.println(i);\n}",o:["2 раза","3 раза","4 раза","5 раз"],a:1,e:"Значения i: 2, 5, 8. Следующее — 11, а условие i < 11 уже ложно.",r:15},
+ {d:2,t:"Что выведет код?",code:"int[] a = {4, 8, 2, 9};\nSystem.out.println(a[1] + a[3]);",o:["11","13","17","Ошибка"],a:1,e:"Индексация начинается с нуля: a[1] = 8, a[3] = 9. Сумма — 17.",r:15,fix:true},
+ {d:3,t:"Что выведет программа?",code:"int x = 14;\nif (x % 2 == 0 && x > 10) {\n  System.out.println(\"A\");\n} else {\n  System.out.println(\"B\");\n}",o:["A","B","AB","Ничего"],a:0,e:"14 делится на 2 без остатка и больше 10. Оба условия истинны, поэтому печатается A.",r:20},
+ {d:3,t:"Какой будет результат?",code:"int n = 1;\nfor (int i = 1; i <= 3; i++) {\n  n *= 2;\n}\nSystem.out.println(n);",o:["3","6","8","16"],a:2,e:"n последовательно становится 2, 4, 8.",r:20},
+ {d:3,t:"Найди итоговую сумму.",code:"int[] nums = {3, 6, 1, 8, 2};\nint s = 0;\nfor (int n : nums) {\n  if (n > 3) s += n;\n}\nSystem.out.println(s);",o:["9","14","16","20"],a:2,e:"Числа больше 3: 6 и 8. Их сумма — 14.",r:20,fix:true},
+ {d:3,t:"Какое условие проверяет, что n находится в диапазоне от 10 до 20 включительно?",o:["n > 10 && n < 20","n >= 10 && n <= 20","n >= 10 || n <= 20","n == 10 && n == 20"],a:1,e:"Обе границы включены, поэтому нужны >= и <=, соединённые через &&.",r:20},
+ {d:3,t:"Что выведет программа?",code:"int x = 3;\nint y = 5;\nSystem.out.println(x++ + ++y);",o:["8","9","10","Ошибка"],a:1,e:"x++ возвращает 3, затем увеличивает x. ++y сначала увеличивает y до 6. 3 + 6 = 9.",r:25},
+ {d:4,t:"Какое значение получим?",code:"String s = \"programming\";\nSystem.out.println(s.substring(3, 7));",o:["gram","ogra","gramm","prog"],a:0,e:"substring включает начальный индекс 3, но не включает индекс 7. Получается gram.",r:25},
+ {d:4,t:"Что выведет код?",code:"int x = 0;\nfor (int i = 1; i <= 5; i++) {\n  if (i % 2 == 1) x += i;\n}\nSystem.out.println(x);",o:["6","9","15","5"],a:1,e:"Складываются нечётные числа 1 + 3 + 5 = 9.",r:25},
+ {d:4,t:"Какая сложность у линейного поиска в массиве из n элементов в худшем случае?",o:["O(1)","O(log n)","O(n)","O(n²)"],a:2,e:"В худшем случае нужно проверить каждый элемент массива — O(n).",r:30},
+ {d:4,t:"Что выведет рекурсия?",code:"static int f(int n) {\n  if (n <= 1) return 1;\n  return n * f(n - 1);\n}\nSystem.out.println(f(4));",o:["10","16","24","120"],a:2,e:"f(4) = 4 × 3 × 2 × 1 = 24. Это вычисление факториала.",r:30},
+ {d:5,t:"Какое выражение проверяет, что число n простое?",o:["n % 2 != 0","Проверить делители от 2 до sqrt(n)","Проверить только n - 1","n / 2 == 0"],a:1,e:"Достаточно проверить делители от 2 до квадратного корня числа. Не забудь отдельно обработать n < 2.",r:35}
+];
+// Correct a couple of intentionally complex choices by explicit indices:
+IT[4].a=2; // 8 + 9 = 17
+IT[7].a=1; // 6 + 8 = 14
+
+const MATH = [
+ {d:1,t:"Реши уравнение: 3x − 7 = 20.",input:true,a:9,e:"3x = 27, следовательно x = 9.",r:10},
+ {d:1,t:"Найди 15% от 240.",input:true,a:36,e:"240 × 0.15 = 36.",r:10},
+ {d:2,t:"Реши уравнение: 2(x − 4) = 3x + 1.",input:true,a:-9,e:"2x − 8 = 3x + 1. Переносим: −9 = x.",r:15},
+ {d:2,t:"Вычисли: 2³ × 2⁴.",o:["2⁷ = 128","2¹² = 4096","4⁷ = 16384","2 = 2"],a:0,e:"При умножении степеней с одинаковым основанием показатели складываются: 3 + 4 = 7.",r:15},
+ {d:2,t:"Товар стоил 8000 тенге. Сначала цену снизили на 10%, затем повысили на 10%. Какова итоговая цена?",input:true,a:7920,e:"8000 × 0.9 × 1.1 = 7920. Проценты считаются от разных сумм.",r:20},
+ {d:3,t:"Реши систему: x + y = 11; x − y = 3. Найди x.",input:true,a:7,e:"Сложим уравнения: 2x = 14, значит x = 7.",r:20},
+ {d:3,t:"Вычисли: (3/4 + 1/6) × 12.",input:true,a:11,e:"3/4 + 1/6 = 9/12 + 2/12 = 11/12. Умножаем на 12 и получаем 11.",r:20},
+ {d:3,t:"Последовательность: 2, 6, 18, 54, ... Какое следующее число?",input:true,a:162,e:"Каждый следующий член умножается на 3: 54 × 3 = 162.",r:20},
+ {d:4,t:"Корни уравнения x² − 5x + 6 = 0 равны 2 и ... Введи второй корень.",input:true,a:3,e:"x² − 5x + 6 = (x − 2)(x − 3). Второй корень — 3.",r:25},
+ {d:4,t:"Прямоугольный треугольник имеет катеты 9 и 12. Найди гипотенузу.",input:true,a:15,e:"По теореме Пифагора: √(9² + 12²) = √225 = 15.",r:25},
+ {d:4,t:"Среднее арифметическое пяти чисел равно 14. Сумма четырёх из них равна 61. Найди пятое число.",input:true,a:9,e:"Сумма всех пяти чисел равна 5 × 14 = 70. Пятое число: 70 − 61 = 9.",r:25},
+ {d:5,t:"Реши: 2x² − 8 = 0. Введи положительный корень.",input:true,a:2,e:"2x² = 8, x² = 4. Положительный корень — 2.",r:30},
+ {d:5,t:"Вероятность выпадения орла при одном броске монеты равна 1/2. Какова вероятность получить два орла подряд в процентах?",input:true,a:25,e:"Независимые вероятности перемножаются: 1/2 × 1/2 = 1/4 = 25%.",r:30},
+ {d:5,t:"Найди сумму всех целых чисел от 1 до 100.",input:true,a:5050,e:"Формула суммы: n(n + 1)/2. Получаем 100 × 101 / 2 = 5050.",r:35}
+];
+
+const EXPERT = [
+ {d:5,t:"Напиши результат программы.",code:"int n = 0;\nfor (int i = 1; i <= 10; i++) {\n  if (i % 3 == 0) n += i;\n}\nSystem.out.println(n);",input:true,a:18,e:"Числа от 1 до 10, кратные 3: 3, 6 и 9. Их сумма — 18.",r:35},
+ {d:5,t:"Сколько элементов массива больше среднего арифметического?",code:"int[] a = {2, 4, 6, 8, 10};",input:true,a:2,e:"Среднее равно 6. Элементы больше 6 — это 8 и 10. Ответ: 2.",r:35},
+ {d:5,t:"Напиши результат программы.",code:"int x = 1;\nfor (int i = 0; i < 4; i++) {\n  x = x * 2 + 1;\n}\nSystem.out.println(x);",input:true,a:31,e:"Последовательно: 3, 7, 15, 31.",r:35},
+ {d:5,t:"Найди x: 1/(x − 1) = 1/3. Какое значение x удовлетворяет уравнению?",input:true,a:4,e:"x − 1 = 3, значит x = 4. Ограничение: x не равно 1.",r:35},
+ {d:5,t:"В массиве [7, 2, 9, 4, 6] найди сумму минимального и максимального элементов.",input:true,a:11,e:"Минимум 2, максимум 9. Сумма равна 11.",r:35}
+];
+
+function openQuiz(type){
+ let pool=type==="it"?IT:type==="math"?MATH:EXPERT;
+ // Slightly favor questions appropriate to the player's level:
+ let maxD=Math.min(5,Math.max(2,Math.ceil(state.level/2)+1));
+ let available=pool.filter(q=>q.d<=maxD);
+ if(type==="expert")available=pool;
+ if(!available.length)available=pool;
+ let q=available[Math.floor(Math.random()*available.length)];
+ currentQuestion={...q,type};
+ answeredThisQuestion=false;
+ document.getElementById("overlay").style.display="flex";
+ document.getElementById("qCategory").textContent=type==="it"?"💻 Информатика":type==="math"?"📐 Математика":"🔥 Эксперт";
+ document.getElementById("qTitle").textContent="Испытание академии";
+ document.getElementById("qDifficulty").textContent="Сложность: "+["","Начальный","Средний","Сложный","Продвинутый","Эксперт"][q.d]+" · Награда до "+q.r+" XP";
+ document.getElementById("qText").textContent=q.t;
+ document.getElementById("qCode").innerHTML=q.code?`<pre>${esc(q.code)}</pre>`:"";
+ document.getElementById("qAnswers").innerHTML="";
+ if(q.o){
+  document.getElementById("qAnswers").innerHTML=q.o.map((o,i)=>`<button class="option" data-answer="${i}" onclick="chooseOption(${i})">${String.fromCharCode(65+i)}. ${esc(o)}</button>`).join("");
+ }else{
+  document.getElementById("qAnswers").innerHTML=`<label class="muted" for="answerInput">Твой ответ:</label><input id="answerInput" type="text" inputmode="decimal" placeholder="Введи ответ и нажми Проверить">`;
+ }
+ document.getElementById("qFeedback").innerHTML="";
+ document.getElementById("checkBtn").style.display="inline-block";
+ document.getElementById("nextBtn").style.display="none";
 }
-function help(){
-  document.getElementById("questionTitle").textContent="📜 Как играть";
-  document.getElementById("questionBody").innerHTML=
-    `<p>1. Выбери свободную клетку и построй здание.</p>
-    <p>2. Лесопилка производит дерево, библиотека — знания.</p>
-    <p>3. Решай задания, чтобы получать ресурсы и опыт.</p>
-    <p>4. Трать знания на технологии, чтобы открывать новые здания.</p>
-    <p>5. Прогресс сохраняется в этом браузере. Данные не синхронизируются между устройствами.</p>`;
-  document.getElementById("feedback").innerHTML="";
-  document.getElementById("overlay").classList.add("show");
+function chooseOption(i){
+ if(answeredThisQuestion)return;
+ document.querySelectorAll("[data-answer]").forEach(b=>b.style.outline="none");
+ let el=document.querySelector(`[data-answer="${i}"]`);
+ if(el){el.style.outline="2px solid #60a5fa";document.getElementById("answerInput")?.remove()}
+ currentQuestion.selected=i;
+}
+function checkAnswer(){
+ if(!currentQuestion||answeredThisQuestion)return;
+ let q=currentQuestion,correct=false,answerText="";
+ if(q.o){
+  if(q.selected===undefined){document.getElementById("qFeedback").innerHTML='<div class="feedback wrong">Сначала выбери вариант ответа.</div>';return}
+  correct=q.selected===q.a;
+  answerText=q.o[q.a];
+ }else{
+  let input=document.getElementById("answerInput");
+  if(!input||input.value.trim()===""){document.getElementById("qFeedback").innerHTML='<div class="feedback wrong">Введи свой ответ.</div>';return}
+  let value=Number(input.value.trim().replace(",","."));
+  correct=Number.isFinite(value)&&Math.abs(value-Number(q.a))<0.000001;
+  answerText=String(q.a);
+ }
+ answeredThisQuestion=true;
+ state.solved++;
+ if(correct){
+  state.correct++;
+  let base={knowledge:Math.ceil(q.r/3),xp:q.r};
+  reward(base);
+  logEvent("Правильный ответ! Академия получила новые знания.");
+ }else{
+  state.knowledge+=1;
+  logEvent("Задание не решено. Попробуй ещё раз в следующий раз.");
+ }
+ document.getElementById("qFeedback").innerHTML=`<div class="feedback ${correct?"correct":"wrong"}"><b>${correct?"✅ Правильно!":"❌ Пока неправильно."}</b><br>${esc(q.e)}<br><br><b>Ответ: ${esc(answerText)}</b>${correct?`<br>Награда: +${Math.round(q.r*(state.tech.scholarship?1.5:1))} XP и знания.`:"<br>За попытку ты получил 1 знание."}</div>`;
+ document.getElementById("checkBtn").style.display="none";
+ document.getElementById("nextBtn").style.display="inline-block";
+ render();
+}
+function nextQuestion(){closeQuiz();openQuiz(currentQuestion.type)}
+function closeQuiz(){document.getElementById("overlay").style.display="none";currentQuestion=null}
+function showHelp(){
+ alert("MINDORIA — правила\n\n1. Строй здания на свободных клетках карты.\n2. Лесопилки производят дерево, каменоломни — камень, библиотеки — знания, солнечные станции — энергию.\n3. Нажимай «Следующий ход», чтобы получить производство.\n4. Решай задачи в Академии, чтобы получать знания и опыт.\n5. Исследуй технологии для улучшения производства.\n6. Прогресс сохраняется в браузере на этом устройстве.");
 }
 function resetGame(){
-  if(confirm("Начать новую империю? Текущий прогресс будет удалён.")){
-    state=freshState();render();
-  }
+ if(!confirm("Начать новую игру? Текущий прогресс будет сброшен на этом устройстве."))return;
+ state=freshState();selectedCell=null;logEvent("Началась новая цивилизация.");render();
 }
-document.getElementById("overlay").addEventListener("click",e=>{
-  if(e.target.id==="overlay")closeQuiz();
-});
 render();
 </script>
 </body>
